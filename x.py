@@ -2,50 +2,54 @@
 from tkinter import *
 from tkinter import filedialog as tkfd
 from tkinter import messagebox as tkmb
+from datetime import *
 
 #ウィンドウ
 w = Tk()
 w.title("タイトル")
 w.geometry("800x400")
 
-m = Menu(w) 
+#メニューバー
+mb = Menu(w)
+w.config(menu=mb)
 
-#メニューバーを画面にセット 
-w.config(menu=m) 
+m1 = Menu(mb, tearoff=False)
+mb.add_cascade(label="見出し1", menu=m1)
+m1.add_command(label="項目1")
+m1.add_command(label="項目2")
 
-#メニューに親メニュー（ファイル）を作成する 
-menu_file = Menu(w)
-m.add_cascade(label="ファイル", menu=menu_file) 
-
-#親メニューに子メニュー（開く・閉じる）を追加する 
-def open_file():
-    pass
-def close_disp():
-    pass
-menu_file.add_command(label="内容1")
-menu_file.add_separator() 
-menu_file.add_command(label="内容2")
+m2 = Menu(mb, tearoff=False)
+mb.add_cascade(label="見出し2", menu=m2)
+m2.add_command(label="項目1")
+m2.add_command(label="項目2")
 
 #フレーム
 lf = LabelFrame(w, text="フレーム")
-lf.pack()
+lf.grid(column=0, row=0)
 
 #テキスト(1行)
 l = Label(lf, text="テキスト(1行)")
-l.pack()
+l.grid(column=0, row=0)
 
 #テキスト(複数行)
 m = Message(lf, text="テキスト\n(複数行)")
-m.pack()
+m.grid(column=0, row=1)
 
 #フォーム(1行)
 e = Entry(lf)
-e.pack()
+e.grid(column=0, row=2)
+
+e_b = Button(lf, text="表示", command=lambda: print(e.get()))
+e_b.grid(column=1, row=2)
 
 #フォーム(複数行)
 t = Text(lf, width=30, height=3)
-t.pack()
+t.grid(column=0, row=3)
 
+t_b = Button(lf, text="表示", command=lambda: print(t.get("1.0", "end")))
+t_b.grid(column=1, row=3)
+
+"""
 #チェックボックス
 bv = BooleanVar()
 bv.set(True)
@@ -68,7 +72,7 @@ om.pack()
 
 # スピンボックス
 varspinbox = StringVar()
-sb = Spinbox(lf, from_=0, to=10, increment=1, textvariable=varspinbox)
+sb = Spinbox(lf, from_=0, to=10, textvariable=varspinbox)
 sb.pack()
 
 # ファイル
@@ -78,8 +82,9 @@ fd = tkfd.askopenfilename(initialdir="C:", filetypes=[("○○ファイル", "*.
 tkmb.showinfo("ダイアログ", "内容")
 
 #ボタン
-b = Button(lf, text="ボタン", command=lambda: print("ボタン機能"))
+b = Button(lf, text="ボタン", command=lambda: print(e.get()))
 b.pack()
+"""
 
 w.mainloop()
 
