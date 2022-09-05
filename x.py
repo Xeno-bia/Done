@@ -39,52 +39,70 @@ m.grid(column=0, row=1)
 e = Entry(lf)
 e.grid(column=0, row=2)
 
-e_b = Button(lf, text="表示", command=lambda: print(e.get()))
+e_b = Button(lf, text="入力内容表示", command=lambda: print(e.get()))
 e_b.grid(column=1, row=2)
 
 #フォーム(複数行)
 t = Text(lf, width=30, height=3)
 t.grid(column=0, row=3)
 
-t_b = Button(lf, text="表示", command=lambda: print(t.get("1.0", "end")))
+t_b = Button(lf, text="入力内容表示", command=lambda: print(t.get("1.0", "end")))
 t_b.grid(column=1, row=3)
 
-"""
 #チェックボックス
 bv = BooleanVar()
 bv.set(True)
-cb = Checkbutton(lf, text="チェックボックス", command=lambda: print("チェック機能"), variable=bv)
-cb.pack()
+
+cb = Checkbutton(lf, text="チェックボックス", variable=bv)
+cb.grid(column=0, row=4)
+
+cb_b = Button(lf, text="チェック有無表示", command=lambda: print(bv.get()))
+cb_b.grid(column=1, row=4)
 
 #ラジオボタン
 iv = IntVar()
 iv.set(1)
-rb1 = Radiobutton(lf, text="ラジオボタン1", command=lambda: print("ラジオ機能1"), value=1, variable=iv)
-rb2 = Radiobutton(lf, text="ラジオボタン2", command=lambda: print("ラジオ機能2"), value=2, variable=iv)
-rb1.pack()
-rb2.pack()
+
+rb1 = Radiobutton(lf, text="ラジオボタン1", value=1, variable=iv)
+rb1.grid(column=0, row=5)
+
+rb2 = Radiobutton(lf, text="ラジオボタン2", value=2, variable=iv)
+rb2.grid(column=0, row=6)
+
+rb_b = Button(lf, text="選択内容表示", command=lambda: print(iv.get()))
+rb_b.grid(column=1, row=6)
 
 #ドロップダウン
 sv = StringVar()
 sv.set("ドロップダウン1")
+
 om = OptionMenu(lf, sv, "ドロップダウン1", "ドロップダウン2")
-om.pack()
+om.grid(column=0, row=7)
+
+om_b = Button(lf, text="選択内容表示", command=lambda: print(sv.get()))
+om_b.grid(column=1, row=7)
 
 # スピンボックス
-varspinbox = StringVar()
+varspinbox = IntVar()
+
 sb = Spinbox(lf, from_=0, to=10, textvariable=varspinbox)
-sb.pack()
+sb.grid(column=0, row=8)
+
+sb_b = Button(lf, text="選択内容表示", command=lambda: print(varspinbox.get()))
+sb_b.grid(column=1, row=8)
 
 # ファイル
-fd = tkfd.askopenfilename(initialdir="C:", filetypes=[("○○ファイル", "*.py")])
+def fd():
+    fp = tkfd.askopenfilename(initialdir="C:", filetypes=[("Pythonファイル", "*.py")])
+    print(fp)
+fd_b = Button(lf, text="ファイル選択", command=fd)
+fd_b.grid(column=0, row=9)
 
 #ダイアログ
-tkmb.showinfo("ダイアログ", "内容")
-
-#ボタン
-b = Button(lf, text="ボタン", command=lambda: print(e.get()))
-b.pack()
-"""
+def d():
+    tkmb.showinfo("ダイアログ", "内容")
+d_b = Button(lf, text="ダイアログ表示", command=d)
+d_b.grid(column=0, row=10)
 
 w.mainloop()
 
