@@ -12,7 +12,7 @@ root.state("zoomed")
 
 #フレーム
 frame = LabelFrame(root, text="フレーム")
-frame.grid(column=0, row=0, sticky="nw")
+frame.grid(column=0, row=0, sticky="nw", padx=20, pady=20, ipadx=20, ipady=20)
 
 #テキスト(1行)
 label = Label(frame, text="テキスト(1行)")
@@ -91,10 +91,7 @@ treeview.heading("#0", text="")
 treeview.heading(1, text="ID", anchor="center")
 treeview.heading(2, text="名前", anchor="center")
 
-x = [
-    (1, "太郎"),
-    (2, "次郎")
-]
+x = [(1, "太郎"), (2, "次郎")]
 
 for i in range(len(x)):
     if i % 2 == 0:
@@ -115,7 +112,7 @@ def action():
     act_label.grid(column=0, row=)
     """
 
-button = Button(root, text="表示", command=action)
-button.grid(column=1, row=0, sticky="sw")
+button = Button(frame, text="表示", command=action)
+button.grid(column=0, row=13, sticky="nw")
 
 root.mainloop()
