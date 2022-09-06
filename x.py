@@ -1,8 +1,8 @@
 #モジュール
 from tkinter import *
+from tkinter import ttk
 from tkinter import filedialog as tkfd
 from tkinter import messagebox as tkmb
-from tkinter import ttk
 from datetime import *
 
 #ウィンドウ
@@ -47,10 +47,10 @@ radiobutton2 = Radiobutton(frame, text="ラジオボタン2", value="ラジオ�
 radiobutton2.grid(column=0, row=6, sticky="nw")
 
 #ドロップダウン
-option_var = StringVar()
+combo_var = StringVar()
 
-optionmenu = OptionMenu(frame, option_var, "ドロップダウン1", "ドロップダウン2")
-optionmenu.grid(column=0, row=7, sticky="nw")
+combobox = ttk.Combobox(frame, textvariable=combo_var, values=["ドロップダウン1", "ドロップダウン2"], state="readonly")
+combobox.grid(column=0, row=7, sticky="nw")
 
 #スピンボックス
 spin_var = IntVar()
@@ -103,7 +103,7 @@ for i in range(len(x)):
 treeview.grid(column=0, row=12, sticky="nw")
 
 def action():
-    datas = [entry.get(), text.get("1.0", "end"), check_var.get(), radio_var.get(), option_var.get(), spin_var.get(), scale_var.get(), file_var.get()]
+    datas = [entry.get(), text.get("1.0", "end-1c"), check_var.get(), radio_var.get(), combo_var.get(), spin_var.get(), scale_var.get(), file_var.get()]
     for data in datas:
         print(data)
 
