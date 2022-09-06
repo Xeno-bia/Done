@@ -6,132 +6,116 @@ from tkinter import ttk
 from datetime import *
 
 #ウィンドウ
-w = Tk()
-w.title("タイトル")
-w.geometry("1000x700")
-
-#メニューバー
-mb = Menu(w)
-w.config(menu=mb)
-
-m1 = Menu(mb, tearoff=False)
-mb.add_cascade(label="見出し1", menu=m1)
-m1.add_command(label="項目1")
-m1.add_command(label="項目2")
-
-m2 = Menu(mb, tearoff=False)
-mb.add_cascade(label="見出し2", menu=m2)
-m2.add_command(label="項目1")
-m2.add_command(label="項目2")
+root = Tk()
+root.title("タイトル")
+root.state("zoomed")
 
 #フレーム
-lf = LabelFrame(w, text="フレーム")
-lf.grid(column=0, row=0)
+frame = LabelFrame(root, text="フレーム")
+frame.grid(column=0, row=0, sticky="nw")
 
 #テキスト(1行)
-l = Label(lf, text="テキスト(1行)")
-l.grid(column=0, row=0)
+label = Label(frame, text="テキスト(1行)")
+label.grid(column=0, row=0, sticky="nw")
 
 #テキスト(複数行)
-m = Message(lf, text="テキスト\n(複数行)")
-m.grid(column=0, row=1)
+message = Message(frame, text="テキスト\n(複数行)")
+message.grid(column=0, row=1, sticky="nw")
 
 #フォーム(1行)
-e = Entry(lf)
-e.grid(column=0, row=2)
-
-e_b = Button(lf, text="入力内容表示", command=lambda: print(e.get()))
-e_b.grid(column=1, row=2)
+entry = Entry(frame)
+entry.grid(column=0, row=2, sticky="nw")
 
 #フォーム(複数行)
-t = Text(lf, width=30, height=3)
-t.grid(column=0, row=3)
-
-t_b = Button(lf, text="入力内容表示", command=lambda: print(t.get("1.0", "end")))
-t_b.grid(column=1, row=3)
+text = Text(frame, width=30, height=3)
+text.grid(column=0, row=3, sticky="nw")
 
 #チェックボックス
-bv = BooleanVar()
-bv.set(True)
+check_var = BooleanVar()
 
-cb = Checkbutton(lf, text="チェックボックス", variable=bv)
-cb.grid(column=0, row=4)
-
-cb_b = Button(lf, text="チェック有無表示", command=lambda: print(bv.get()))
-cb_b.grid(column=1, row=4)
+checkbutton = Checkbutton(frame, text="チェックボックス", variable=check_var)
+checkbutton.grid(column=0, row=4, sticky="nw")
 
 #ラジオボタン
-iv = IntVar()
-iv.set(1)
+radio_var = StringVar()
+radio_var.set("ラジオボタン1")
 
-rb1 = Radiobutton(lf, text="ラジオボタン1", value=1, variable=iv)
-rb1.grid(column=0, row=5)
+radiobutton1 = Radiobutton(frame, text="ラジオボタン1", value="ラジオボタン1", variable=radio_var)
+radiobutton1.grid(column=0, row=5, sticky="nw")
 
-rb2 = Radiobutton(lf, text="ラジオボタン2", value=2, variable=iv)
-rb2.grid(column=0, row=6)
-
-rb_b = Button(lf, text="選択内容表示", command=lambda: print(iv.get()))
-rb_b.grid(column=1, row=6)
+radiobutton2 = Radiobutton(frame, text="ラジオボタン2", value="ラジオボタン2", variable=radio_var)
+radiobutton2.grid(column=0, row=6, sticky="nw")
 
 #ドロップダウン
-sv = StringVar()
-sv.set("ドロップダウン1")
+option_var = StringVar()
 
-om = OptionMenu(lf, sv, "ドロップダウン1", "ドロップダウン2")
-om.grid(column=0, row=7)
+optionmenu = OptionMenu(frame, option_var, "ドロップダウン1", "ドロップダウン2")
+optionmenu.grid(column=0, row=7, sticky="nw")
 
-om_b = Button(lf, text="選択内容表示", command=lambda: print(sv.get()))
-om_b.grid(column=1, row=7)
+#スピンボックス
+spin_var = IntVar()
 
-# スピンボックス
-varspinbox = IntVar()
-
-sb = Spinbox(lf, from_=0, to=10, textvariable=varspinbox)
-sb.grid(column=0, row=8)
-
-sb_b = Button(lf, text="選択内容表示", command=lambda: print(varspinbox.get()))
-sb_b.grid(column=1, row=8)
+spinbox = Spinbox(frame, from_=0, to=100, textvariable=spin_var)
+spinbox.grid(column=0, row=8, sticky="nw")
 
 #スケール
 scale_var = IntVar()
-s = Scale(lf, variable=scale_var, orient=HORIZONTAL, length=300, from_=0, to=100, tickinterval=10)
-s.grid(column=0, row=9)
 
-#ノートブック
+scale = Scale(frame, variable=scale_var, orient=HORIZONTAL, length=300, from_=0, to=100, tickinterval=10)
+scale.grid(column=0, row=9, sticky="nw")
 
-# ファイル
-def fd():
-    fp = tkfd.askopenfilename(initialdir="C:", filetypes=[("Pythonファイル", "*.py")])
-    print(fp)
-fd_b = Button(lf, text="ファイル選択", command=fd)
-fd_b.grid(column=0, row=10)
+#ファイル
+file_var = StringVar()
+
+def filedialog():
+    file_var.set(tkfd.askopenfilename(initialdir="C:", filetypes=[("Pythonファイル", "*.py")]))
+
+file_button = Button(frame, text="ファイル選択", command=filedialog)
+file_button.grid(column=0, row=10, sticky="nw")
 
 #ダイアログ
-def d():
-    tkmb.showinfo("ダイアログ", "内容")
-d_b = Button(lf, text="ダイアログ表示", command=d)
-d_b.grid(column=0, row=11)
+def dialog():
+    tkmb.showinfo("タイトル", "内容")
 
-# 表
-col_num = [1, 2]
-x = [(1, "太郎"), (2, "次郎")]
-tv = ttk.Treeview(lf, columns=col_num, height=len(x))
+dialog_button = Button(frame, text="ダイアログ表示", command=dialog)
+dialog_button.grid(column=0, row=11, sticky="nw")
 
-tv.column("#0", width=0, stretch="no")
-tv.column(1, width=50)
-tv.column(2, width=100)
+#表
+treeview = ttk.Treeview(frame, columns=[1, 2])
 
-tv.heading("#0", text="")
-tv.heading(1, text="ID", anchor="center")
-tv.heading(2, text="名前", anchor="center")
+treeview.column("#0", width=0, stretch="no")
+treeview.column(1, width=30)
+treeview.column(2, width=200)
+
+treeview.heading("#0", text="")
+treeview.heading(1, text="ID", anchor="center")
+treeview.heading(2, text="名前", anchor="center")
+
+x = [
+    (1, "太郎"),
+    (2, "次郎")
+]
 
 for i in range(len(x)):
     if i % 2 == 0:
-        tv.insert("", "end", values=x[i])
+        treeview.insert("", "end", values=x[i])
     else:
-        tv.insert("", "end", values=x[i], tags="odd")
-        tv.tag_configure("odd", background="aqua")
+        treeview.insert("", "end", values=x[i], tags="odd")
+        treeview.tag_configure("odd", background="aqua")
 
-tv.grid(column=0, row=12)
+treeview.grid(column=0, row=12, sticky="nw")
 
-w.mainloop()
+def action():
+    datas = [entry.get(), text.get("1.0", "end"), check_var.get(), radio_var.get(), option_var.get(), spin_var.get(), scale_var.get(), file_var.get()]
+    for data in datas:
+        print(data)
+
+    """
+    act_label = Label(root, text=)
+    act_label.grid(column=0, row=)
+    """
+
+button = Button(root, text="表示", command=action)
+button.grid(column=1, row=0, sticky="sw")
+
+root.mainloop()
